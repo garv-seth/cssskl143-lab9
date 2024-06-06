@@ -1,7 +1,7 @@
 /**
  * This class implements multiple sort algorithms.
  *
- * @author (your name)
+ * @author Garv Seth
  * @version (CSSSKL 143)
  */
 
@@ -40,6 +40,22 @@ public class Sort {
 //        System.out.println(Arrays.toString(insertionArray));
 
         // TODO Test your string sort here
+
+        /*
+         System.out.println("Array before bubble sort:");
+        System.out.println(Arrays.toString(bubbleArray));
+        bubbleSort(bubbleArray);
+        System.out.println("Array after bubble sort:");
+        System.out.println(Arrays.toString(bubbleArray));
+
+        String[] stringArray = {"apple", "orange", "banana", "pear", "grape"};
+        System.out.println("Array before bubble sort:");
+        System.out.println(Arrays.toString(stringArray));
+        bubbleSort(stringArray);
+        System.out.println("Array after bubble sort:");
+        System.out.println(Arrays.toString(stringArray));
+        */
+
     }
 
     /**
@@ -47,8 +63,19 @@ public class Sort {
      * @param numbers
      */
     public static void bubbleSort(int[] numbers) {
-        // Implement your sort, call a helper swap method
+        boolean swapped;
+        for (int i = 0; i < numbers.length - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < numbers.length - 1 - i; j++) {
+                if (numbers[j] > numbers[j + 1]) {
+                    swap(numbers, j, j + 1);
+                    swapped = true;
+                }
+            }
+            if (!swapped) break; // Optimization: Stop if no swaps were made
+        }
     }
+
 
     /**
      *
@@ -58,12 +85,38 @@ public class Sort {
      * @param indexB
      */
     public static void swap(int[] numbers, int indexA, int indexB) {
-        // swap the elements at indexA and indexB
+        int temp = numbers[indexA];
+        numbers[indexA] = numbers[indexB];
+        numbers[indexB] = temp;
     }
+
+    public static void bubbleSort(String[] strings) {
+        boolean swapped;
+        for (int i = 0; i < strings.length - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < strings.length - 1 - i; j++) {
+                if (strings[j].compareTo(strings[j + 1]) > 0) {
+                    swap(strings, j, j + 1);
+                    swapped = true;
+                }
+            }
+            if (!swapped) break; // Optimization: Stop if no swaps were made
+        }
+    }
+
+    public static void swap(String[] strings, int indexA, int indexB) {
+        String temp = strings[indexA];
+        strings[indexA] = strings[indexB];
+        strings[indexB] = temp;
+    }
+
 
     // selection sort for ints
     public static void selectionSort(int[] numbers) {
-        // Implement your sort, call swapSelection(int[] intList, int i, int nextMin)
+        for (int i = 0; i < numbers.length - 1; i++) {
+            int minIndex = findSmallest(numbers, i, numbers.length);
+            swap(numbers, i, minIndex);
+        }
     }
 
     public static int findSmallest(int[] arr, int begin, int end) {
@@ -83,6 +136,14 @@ public class Sort {
      * @param numbers
      */
     public static void insertionSort(int[] numbers) {
-        // Implement your insertion sort
+        for (int i = 1; i < numbers.length; i++) {
+            int key = numbers[i];
+            int j = i - 1;
+            while (j >= 0 && numbers[j] > key) {
+                numbers[j + 1] = numbers[j];
+                j--;
+            }
+            numbers[j + 1] = key;
+        }
     }
 }

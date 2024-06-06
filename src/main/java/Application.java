@@ -1,39 +1,33 @@
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 
-/*
- * The Application Class is both a Window and an Event Handler (or will be)
- * Find the TODOs and implement the ActionListener interface below
- */
-
-// TODO: Modify this class so that it implements ActionListener
-public class Application extends JFrame {
-	JButton myButton = new JButton( "Hello World" );
+public class Application extends JFrame implements ActionListener {
+	private JButton button;
+	private JTextField textField;
 
 	public Application() {
-		super("Window");
-		
-		setSize(300,300);
-		setVisible(true);
+		button = new JButton("Push Me");
+		textField = new JTextField(20);
+
+		setLayout(new FlowLayout());
+		add(button);
+		add(textField);
+
+		button.addActionListener(this);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		myButton.setEnabled(true);
-		myButton.setBounds(75,120,150,30); 
-		// add the button to the display
-		this.add(myButton);
-		
-		//TODO: When this class implements actionlistener, the line below will compile
-
-		// myButton.addActionListener(this);
+		setSize(300, 200);
+		setVisible(true);
 	}
 
-	// TODO: Implement the actionPerformed method
-	
-	//A one line main
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		textField.setText("Hello");
+	}
+
 	public static void main(String[] args) {
-		JFrame app = new Application();
+		new Application();
 	}
-
 }
